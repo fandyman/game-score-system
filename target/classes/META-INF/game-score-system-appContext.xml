@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <context:component-scan base-package="king.game.score.system"/>
+
+    <bean id="requestHandler" class="king.game.score.system.infrastructure.RequestHandler"/>
+
+    <bean id="inetSocketAddress" class="java.net.InetSocketAddress">
+        <constructor-arg value="8081"/>
+    </bean>
+
+    <bean id="httpServer" class="com.sun.net.httpserver.HttpServer" factory-method="create">
+        <constructor-arg ref="inetSocketAddress"/>
+        <constructor-arg value="0"/>
+    </bean>
+
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="httpServer"/>
+        <property name="targetMethod" value="createContext"/>
+        <property name="arguments">
+            <list>
+                <value type="java.lang.String">/</value>
+                <ref bean="requestHandler"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>

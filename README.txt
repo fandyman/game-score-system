@@ -1,0 +1,5 @@
+1. User ids/score levels assumed to be positive integers. Scores assumed to be zero and positive
+integers.
+2. It is assumed to get high session score list one has to be authenticated. Although not mentioned in section 4.3 section 4.1 mentions the use of session key for validity checks for both functions hence it is assumed the highscorelist call being a GET should have a similar query path (sesionkey=<sessionkey>) as it is described in 4.2.
+3. There are 2 load test scripts in main directory (add_scores.sh and get_highest_score_boards.sh). The add_scores.sh exercises the system by sending 10000 score requests with users (range 1-1000) with scores (range 1-10000) for levels (range 1-10) and at the end displays 15 best results from each level 1-10. Similarly the get_highest_score_boards.sh sends 10000 get highest score board requests for levels (range 1-10) (the output has been suppressed). Scripts were started in separate terminals together with JConsole to monitor heap memory and thread usage.
+4. Logging could be added if more time allowed. But then only testing frameworks were allowed in th solution.
